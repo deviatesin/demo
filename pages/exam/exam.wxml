@@ -1,0 +1,216 @@
+<view class="page-container">
+  <view class="nav-bar bg-blue-600 text-white p-4">
+    <view class="flex items-center">
+      <button
+        bindtap="navigateBack"
+        class="mr-4 p-2 hover:bg-blue-700 rounded-lg transition duration-200"
+      >
+        <text class="text-white">←</text>
+      </button>
+      <text class="text-2xl font-bold">考试模式</text>
+    </view>
+  </view>
+
+  <view class="p-6">
+    <view class="max-w-4xl mx-auto">
+      <!-- 考试类型选择 -->
+      <block wx:if="{{!selectedMode}}">
+        <view class="text-center mb-8">
+          <text class="text-2xl font-bold text-gray-800 mb-2">选择考试类型</text>
+          <text class="text-gray-600">请选择您要进行的考试模式</text>
+        </view>
+
+        <view class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <view
+            bindtap="handleModeSelect"
+            data-mode="specialized"
+            class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition duration-200 border-2 border-transparent hover:border-blue-300"
+          >
+            <view class="text-center">
+              <text class="text-6xl mb-4">🎯</text>
+              <text class="text-xl font-semibold text-gray-800 mb-2">专项考试</text>
+              <text class="text-gray-600">针对特定科目进行专项测试</text>
+            </view>
+          </view>
+
+          <view
+            bindtap="handleModeSelect"
+            data-mode="simulation"
+            class="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition duration-200 border-2 border-transparent hover:border-blue-300"
+          >
+            <view class="text-center">
+              <text class="text-6xl mb-4">📝</text>
+              <text class="text-xl font-semibold text-gray-800 mb-2">模拟考试</text>
+              <text class="text-gray-600">全科综合模拟考试</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <!-- 分类选择 -->
+      <block wx:if="{{showCategorySelection}}">
+        <view class="bg-white rounded-lg shadow-md p-6">
+          <view class="flex items-center mb-6">
+            <button
+              bindtap="cancelCategorySelection"
+              class="mr-4 p-2 hover:bg-gray-100 rounded-lg transition duration-200"
+            >
+              <text>←</text>
+            </button>
+            <text class="text-xl font-semibold text-gray-800">选择考试科目</text>
+          </view>
+
+          <view class="space-y-4">
+            <block wx:for="{{trainingCategories}}" wx:key="id">
+              <view class="border border-gray-200 rounded-lg overflow-hidden">
+                <view
+                  bindtap="handleCategorySelect"
+                  data-category="{{item}}"
+                  class="p-4 bg-blue-50 border-l-4 border-blue-600 cursor-pointer hover:bg-blue-100 transition duration-200"
+                >
+                  <view class="flex items-center justify-between">
+                    <text class="text-lg font-semibold text-gray-800">{{item.name}}</text>
+                    <block wx:if="{{item.subcategories.length === 0}}">
+                      <text class="text-gray-500">→</text>
+                    </block>
+                    <block wx:else>
+                      <text class="text-sm text-gray-500">点击展开</text>
+                    </block>
+                  </view>
+                </view>
+                
+                <block wx:if="{{item.subcategories.length > 0 && expandedCategory === item.id}}">
+                  <view class="border-t border-gray-200">
+                    <block wx:for="{{item.subcategories}}" wx:key="id" wx:for-item="subitem">
+                      <view
+                        bindtap="handleSubcategorySelect"
+                        data-subcategory="{{subitem}}"
+                        class="p-3 pl-8 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition duration-200"
+                      >
+                        <view class="flex items-center justify-between">
+                          <text class="text-gray-700">{{subitem.name}}</text>
+                          <text class="text-gray-400">→</text>
+                        </view>
+                      </view>
+                    </block>
+                  </view>
+                </block>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+
+      <!-- 学生信息表单 -->
+      <block wx:if="{{showStudentForm}}">
+        <view class="bg-white rounded-lg shadow-md p-6">
+          <view class="flex items-center mb-6">
+            <button
+              bindtap="backToPrevious"
+              class="mr-4 p-2 hover:bg-gray-100 rounded-lg transition duration-200"
+            >
+              <text>←</text>
+            </button>
+            <text class="text-xl font-semibold text-gray-800">考试信息</text>
+          </view>
+
+          <view class="space-y-6">
+            <view>
+              <text class="block text-sm font-medium text-gray-700 mb-2">
+                学生学号
+              </text>
+              <input
+                type="text"
+                value="{{studentId}}"
+                bindinput="handleStudentIdChange"
+                placeholder="请输入学生学号"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </view>
+
+            <block wx:if="{{selectedMode === 'specialized'}}">
+              <view>
+                <text class="block text-sm font-medium text-gray-700 mb-2">
+                  抽取题目数量
+                </text>
+                <input
+                  type="number"
+                  value="{{questionCount}}"
+                  bindinput="handleQuestionCountChange"
+                  min="1"
+                  max="20"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </view>
+            </block>
+
+            <view class="flex space-x-4">
+              <button
+                bindtap="handleStudentFormSubmit"
+                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+              >
+                确认信息
+              </button>
+              <button
+                bindtap="resetForm"
+                class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+              >
+                重新选择
+              </button>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <!-- 考试信息确认 -->
+      <block wx:if="{{showConfirmation && examData}}">
+        <view class="bg-white rounded-lg shadow-md p-6">
+          <text class="text-xl font-semibold text-gray-800 mb-6">确认考试信息</text>
+          
+          <view class="bg-blue-50 rounded-lg p-4 mb-6">
+            <view class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <view>
+                <text class="text-sm text-gray-600">考试学生:</text>
+                <text class="font-semibold">{{examData.studentName}}</text>
+              </view>
+              <view>
+                <text class="text-sm text-gray-600">学号:</text>
+                <text class="font-semibold">{{examData.studentId}}</text>
+              </view>
+              <view>
+                <text class="text-sm text-gray-600">考试科目:</text>
+                <text class="font-semibold">{{examData.subject}}</text>
+              </view>
+              <view>
+                <text class="text-sm text-gray-600">抽取题数:</text>
+                <text class="font-semibold">{{examData.questionCount}} 题</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="text-center">
+            <text class="text-gray-700 mb-6">
+              考试学生 <text class="font-semibold">{{examData.studentName}}</text>（学号：{{examData.studentId}}），
+              考试科目：{{examData.subject}}，抽取题数：{{examData.questionCount}}，确认继续？
+            </text>
+            
+            <view class="flex space-x-4 justify-center">
+              <button
+                bindtap="handleConfirmation"
+                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-200"
+              >
+                确认开始考试
+              </button>
+              <button
+                bindtap="backToStudentForm"
+                class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-200"
+              >
+                返回修改
+              </button>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

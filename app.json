@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/training/training",
+    "pages/teacher-login/teacher-login",
+    "pages/exam/exam",
+    "pages/scores/scores",
+    "pages/question/question",
+    "pages/exam-questions/exam-questions"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "中医实践考试系统",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A7A7A",
+    "selectedColor": "#3498DB",
+    "backgroundColor": "#F7F7F7",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/training/training",
+        "text": "训练"
+      },
+      {
+        "pagePath": "pages/exam/exam",
+        "text": "考试"
+      },
+      {
+        "pagePath": "pages/scores/scores",
+        "text": "成绩"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

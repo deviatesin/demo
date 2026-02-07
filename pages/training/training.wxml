@@ -1,0 +1,55 @@
+<view class="page-container">
+  <view class="nav-bar bg-green-600 text-white p-4">
+    <view class="flex items-center">
+      <button
+        bindtap="navigateBack"
+        class="mr-4 p-2 hover:bg-green-700 rounded-lg transition duration-200"
+      >
+        <text class="text-white">←</text>
+      </button>
+      <text class="text-2xl font-bold">训练模式</text>
+    </view>
+  </view>
+
+  <view class="p-6">
+    <view class="space-y-4">
+      <block wx:for="{{trainingCategories}}" wx:key="id">
+        <view class="bg-white rounded-lg shadow-md overflow-hidden">
+          <view
+            bindtap="handleCategoryClick"
+            data-category="{{item}}"
+            class="p-4 bg-green-50 border-l-4 border-green-600 cursor-pointer hover:bg-green-100 transition duration-200"
+          >
+            <view class="flex items-center justify-between">
+              <text class="text-lg font-semibold text-gray-800">{{item.name}}</text>
+              <block wx:if="{{item.subcategories.length === 0}}">
+                <text class="text-gray-500">→</text>
+              </block>
+              <block wx:else>
+                <text class="text-sm text-gray-500">点击展开</text>
+              </block>
+            </view>
+          </view>
+          
+          <block wx:if="{{item.subcategories.length > 0 && expandedCategory === item.id}}">
+            <view class="border-t border-gray-200">
+              <block wx:for="{{item.subcategories}}" wx:key="id" wx:for-item="subitem">
+                <view
+                  bindtap="handleSubcategoryClick"
+                  data-categoryName="{{item.name}}"
+                  data-subcategoryName="{{subitem.name}}"
+                  class="p-3 pl-8 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition duration-200"
+                >
+                  <view class="flex items-center justify-between">
+                    <text class="text-gray-700">{{subitem.name}}</text>
+                    <text class="text-gray-400">→</text>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </block>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

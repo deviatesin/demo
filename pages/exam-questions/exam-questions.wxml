@@ -1,0 +1,102 @@
+<view class="page-container">
+  <view class="nav-bar bg-blue-600 text-white p-4">
+    <view class="flex items-center">
+      <button
+        bindtap="navigateBack"
+        class="mr-4 p-2 hover:bg-blue-700 rounded-lg transition duration-200"
+      >
+        <text class="text-white">←</text>
+      </button>
+      <text class="text-2xl font-bold">考试题目</text>
+    </view>
+  </view>
+
+  <view class="p-6">
+    <view class="max-w-4xl mx-auto">
+      <!-- 考试信息 -->
+      <view class="bg-blue-50 rounded-lg p-4 mb-6">
+        <view class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <view>
+            <text class="text-sm text-gray-600">考试学生:</text>
+            <text class="font-semibold">{{examData.studentName}}</text>
+          </view>
+          <view>
+            <text class="text-sm text-gray-600">学号:</text>
+            <text class="font-semibold">{{examData.studentId}}</text>
+          </view>
+          <view>
+            <text class="text-sm text-gray-600">考试科目:</text>
+            <text class="font-semibold">{{examData.subject}}</text>
+          </view>
+          <view>
+            <text class="text-sm text-gray-600">抽取题数:</text>
+            <text class="font-semibold">{{examData.questionCount}} 题</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 题目内容 -->
+      <view class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <view class="mb-6">
+          <text class="text-lg font-semibold text-gray-800 mb-2">
+            {{currentQuestion.question}}
+          </text>
+          <text class="text-sm text-gray-600">
+            分类: {{currentQuestion.category1}}
+            <text wx:if="{{currentQuestion.category2}}">
+              / {{currentQuestion.category2}}
+            </text>
+          </text>
+        </view>
+
+        <view class="mb-6">
+          <text class="text-sm font-medium text-gray-700 mb-2 block">
+            评分标准
+          </text>
+          <text class="text-gray-600">
+            {{currentQuestion.scoringCriteria}}
+          </text>
+        </view>
+
+        <view class="border-t border-gray-200 pt-4">
+          <text class="text-sm font-medium text-gray-700 mb-2 block">
+            参考答案
+          </text>
+          <text class="text-gray-600">
+            {{currentQuestion.answer}}
+          </text>
+        </view>
+      </view>
+
+      <!-- 题目导航 -->
+      <view class="flex justify-between items-center">
+        <button
+          bindtap="prevQuestion"
+          disabled="{{currentIndex === 0}}"
+          class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 disabled:opacity-50"
+        >
+          上一题
+        </button>
+        <text class="text-gray-600">
+          {{currentIndex + 1}} / {{questions.length}}
+        </text>
+        <block wx:if="{{currentIndex === questions.length - 1}}">
+          <button
+            bindtap="submitExam"
+            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+          >
+            提交考试
+          </button>
+        </block>
+        <block wx:else>
+          <button
+            bindtap="nextQuestion"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+          >
+            下一题
+          </button>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
