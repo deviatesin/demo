@@ -3,6 +3,6 @@
   "projectname": "%E4%B8%AD%E5%8C%BB%E5%AE%9E%E8%B7%B5%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9F",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": false
+    "urlCheck": true
   }
 }
