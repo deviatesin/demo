@@ -1,33 +1,37 @@
 <view class="container">
-  <view class="text-center mb-12">
-    <text class="text-6xl font-bold text-green-800 mb-4">中医药</text>
-    <view class="w-full"></view>
-    <text class="text-xl text-gray-600">中医实践考试系统</text>
-  </view>
-  
-  <view class="space-y-6 w-full max-w-md px-4">
-    <button
-      bindtap="handleNavigation"
-      data-path="/pages/training/training"
-      class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition duration-300 flex items-center justify-center space-x-3"
-    >
-      <text catchtap="handleNavigation" data-path="/pages/training/training" class="text-lg">📚 训练模式</text>
-    </button>
+  <image class="background-image" src="/images/background.jpg" mode="aspectFill"></image>
+  <view class="background-overlay"></view>
+  <view class="content">
+    <view class="text-center mb-12">
+      <text class="text-6xl font-bold text-white mb-4" style="font-family: 'LiSu', '隶书', serif;">中医测试</text>
+      <view class="w-full"></view>
+      <text class="text-xl text-white" style="font-family: 'KaiTi', '楷体', serif; font-weight: bold; font-size: 52rpx; margin: 200rpx 0 32rpx 0;">中医实践考试系统</text>
+    </view>
     
-    <button
-      bindtap="handleNavigation"
-      data-path="/pages/exam/exam"
-      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition duration-300 flex items-center justify-center space-x-3"
-    >
-      <text catchtap="handleNavigation" data-path="/pages/exam/exam" class="text-lg">📝 考试模式</text>
-    </button>
-    
-    <button
-      bindtap="handleNavigation"
-      data-path="/pages/scores/scores"
-      class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition duration-300 flex items-center justify-center space-x-3"
-    >
-      <text catchtap="handleNavigation" data-path="/pages/scores/scores" class="text-lg">📊 成绩查询</text>
-    </button>
+    <view class="space-y-6 w-full max-w-md px-4">
+      <button
+        bindtap="handleNavigation"
+        data-path="/pages/training/training"
+        class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition duration-300 flex items-center justify-center space-x-3"
+      >
+        <text catchtap="handleNavigation" data-path="/pages/training/training" class="text-lg">📚 训练模式</text>
+      </button>
+      
+      <button
+        bindtap="handleNavigation"
+        data-path="/pages/exam/exam"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition duration-300 flex items-center justify-center space-x-3"
+      >
+        <text catchtap="handleNavigation" data-path="/pages/exam/exam" class="text-lg">📝 考试模式</text>
+      </button>
+      
+      <button
+        bindtap="handleNavigation"
+        data-path="/pages/scores/scores"
+        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition duration-300 flex items-center justify-center space-x-3"
+      >
+        <text catchtap="handleNavigation" data-path="/pages/scores/scores" class="text-lg">📊 成绩查询</text>
+      </button>
+    </view>
   </view>
 </view>

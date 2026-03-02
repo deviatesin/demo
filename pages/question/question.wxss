@@ -95,6 +95,60 @@
   color: #6b7280;
 }
 
+/* 答案表格颜色 */
+.bg-blue-50 {
+  background-color: #eff6ff;
+}
+
+.bg-green-50 {
+  background-color: #f0fdf4;
+}
+
+.bg-red-50 {
+  background-color: #fef2f2;
+}
+
+.bg-yellow-50 {
+  background-color: #fffbeb;
+}
+
+/* 弹性布局辅助类 */
+.flex-1 {
+  flex: 1;
+}
+
+.gap-4 {
+  gap: 16rpx;
+}
+
+.gap-2 {
+  gap: 8rpx;
+}
+
+.p-4 {
+  padding: 16rpx;
+}
+
+.p-3 {
+  padding: 12rpx;
+}
+
+.p-1 {
+  padding: 4rpx;
+}
+
+.mb-2 {
+  margin-bottom: 8rpx;
+}
+
+.mb-1 {
+  margin-bottom: 4rpx;
+}
+
+.mt-1 {
+  margin-top: 4rpx;
+}
+
 .font-medium {
   font-weight: 500;
 }

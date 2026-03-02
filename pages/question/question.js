@@ -1,40 +1,16 @@
 // 题目页面逻辑
 
 // 导入API服务
-import { questionApi } from '../../services/api';
-
-// 题库操作函数
-const questionBankOperations = {
-  // 根据目录搜索题目
-  async searchByCategory(category1, category2 = null) {
-    try {
-      const questions = await questionApi.getQuestionsByCategory(category1, category2);
-      return questions;
-    } catch (error) {
-      console.error('根据分类获取题目失败:', error);
-      return [];
-    }
-  },
-  
-  // 获取所有题目
-  async getAllQuestions() {
-    try {
-      const questions = await questionApi.getAllQuestions();
-      return questions;
-    } catch (error) {
-      console.error('获取题目失败:', error);
-      return [];
-    }
-  }
-};
+import { trainingApi } from './api';
 
 Page({
   data: {
-    questions: [],
-    currentIndex: 0,
+    trainingData: null,
     currentQuestion: {},
+    currentIndex: 0,
     category1: '',
-    category2: ''
+    category2: '',
+    showAnswer: false
   },
 
   async onLoad(options) {
@@ -56,28 +32,24 @@ Page({
     });
     
     try {
-      // 根据分类加载题目
-      const questions = await questionBankOperations.searchByCategory(category1, category2);
+      // 根据分类加载训练数据
+      const trainingData = await trainingApi.getTrainingData(category1, category2);
+      console.log('训练数据:', trainingData);
       
-      if (questions.length > 0) {
+      if (trainingData && trainingData.questions && trainingData.questions.length > 0) {
         this.setData({
-          questions: questions,
-          currentQuestion: questions[0]
+          trainingData: trainingData,
+          currentQuestion: trainingData.questions[0]
         });
       } else {
-        // 如果没有找到题目，显示所有题目
-        const allQuestions = await questionBankOperations.getAllQuestions();
-        if (allQuestions.length > 0) {
-          this.setData({
-            questions: allQuestions,
-            currentQuestion: allQuestions[0]
-          });
-        } else {
-          this.setData({
-            questions: [],
-            currentQuestion: {}
-          });
-        }
+        wx.showToast({
+          title: '未找到相关题目',
+          icon: 'none'
+        });
+        this.setData({
+          trainingData: null,
+          currentQuestion: {}
+        });
       }
     } catch (error) {
       console.error('加载题目失败:', error);
@@ -86,7 +58,7 @@ Page({
         icon: 'none'
       });
       this.setData({
-        questions: [],
+        trainingData: null,
         currentQuestion: {}
       });
     } finally {
@@ -99,25 +71,54 @@ Page({
     wx.navigateBack();
   },
 
-  prevQuestion() {
+  toggleAnswer() {
+    // 切换答案显示状态
+    this.setData({
+      showAnswer: !this.data.showAnswer
+    });
+  },
+
+  async prevQuestion() {
     // 上一题
     if (this.data.currentIndex > 0) {
       const newIndex = this.data.currentIndex - 1;
-      this.setData({
-        currentIndex: newIndex,
-        currentQuestion: this.data.questions[newIndex]
-      });
+      await this.loadQuestionByIndex(newIndex);
     }
   },
 
-  nextQuestion() {
+  async nextQuestion() {
     // 下一题
-    if (this.data.currentIndex < this.data.questions.length - 1) {
+    if (this.data.trainingData && this.data.currentIndex < this.data.trainingData.questionCount - 1) {
       const newIndex = this.data.currentIndex + 1;
-      this.setData({
-        currentIndex: newIndex,
-        currentQuestion: this.data.questions[newIndex]
+      await this.loadQuestionByIndex(newIndex);
+    }
+  },
+
+  async loadQuestionByIndex(index) {
+    // 根据索引加载题目
+    wx.showLoading({
+      title: '加载题目中...'
+    });
+    
+    try {
+      const { category1, category2 } = this.data;
+      const trainingData = await trainingApi.getTrainingData(category1, category2, index + 1);
+      
+      if (trainingData && trainingData.questions && trainingData.questions.length > 0) {
+        this.setData({
+          currentIndex: index,
+          currentQuestion: trainingData.questions[0],
+          showAnswer: false
+        });
+      }
+    } catch (error) {
+      console.error('加载题目失败:', error);
+      wx.showToast({
+        title: '加载题目失败，请重试',
+        icon: 'none'
       });
+    } finally {
+      wx.hideLoading();
     }
   }
 });

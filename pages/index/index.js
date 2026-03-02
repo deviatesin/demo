@@ -12,7 +12,7 @@ Page({
   handleNavigation(e) {
     // 处理导航
     const path = e.currentTarget.dataset.path;
-    wx.switchTab({
+    wx.navigateTo({
       url: path
     });
   }

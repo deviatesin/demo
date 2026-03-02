@@ -1,13 +1,13 @@
 /* 训练模式页面样式 */
 .page-container {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #f0fdf4;
 }
 
 .nav-bar {
-  background-color: #059669;
+  background-color: #10b981;
   color: white;
-  padding: 16rpx;
+  padding: 24rpx;
 }
 
 .flex {
@@ -22,12 +22,18 @@
   margin-right: 16rpx;
 }
 
-.p-2 {
-  padding: 8rpx;
+.back-button {
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
 }
 
 .hover-bg-green-700:hover {
-  background-color: #047857;
+  background-color: #059669;
 }
 
 .rounded-lg {
@@ -43,7 +49,7 @@
 }
 
 .text-2xl {
-  font-size: 32rpx;
+  font-size: 36rpx;
 }
 
 .font-bold {
@@ -51,13 +57,13 @@
 }
 
 .p-6 {
-  padding: 24rpx;
+  padding: 32rpx;
 }
 
 .space-y-4 {
   display: flex;
   flex-direction: column;
-  gap: 16rpx;
+  gap: 24rpx;
 }
 
 .bg-white {
@@ -85,7 +91,7 @@
 }
 
 .border-green-600 {
-  border-color: #059669;
+  border-color: #10b981;
 }
 
 .cursor-pointer {
@@ -101,7 +107,7 @@
 }
 
 .text-lg {
-  font-size: 32rpx;
+  font-size: 36rpx;
 }
 
 .font-semibold {
@@ -117,7 +123,7 @@
 }
 
 .text-sm {
-  font-size: 24rpx;
+  font-size: 28rpx;
 }
 
 .border-t {
@@ -128,12 +134,16 @@
   border-color: #e5e7eb;
 }
 
+.p-4 {
+  padding: 32rpx;
+}
+
 .p-3 {
-  padding: 12rpx;
+  padding: 24rpx;
 }
 
 .pl-8 {
-  padding-left: 32rpx;
+  padding-left: 48rpx;
 }
 
 .hover-bg-gray-50:hover {

@@ -1,0 +1,55 @@
+<view class="page-container">
+  <view class="p-6">
+    <view style="width: 98%; margin-left: auto; margin-right: auto;">
+      <!-- 页面标题 -->
+      <view class="mb-6">
+        <text class="text-2xl font-bold text-gray-800">腧穴列表</text>
+      </view>
+
+      <!-- 加载状态 -->
+      <view wx:if="{{loading}}" style="text-align: center; padding: 20px;">
+        <text class="text-gray-500">加载中...</text>
+      </view>
+      
+      <!-- 错误提示 -->
+      <view wx:if="{{error}}" style="text-align: center; padding: 20px;">
+        <text class="text-red-500">{{error}}</text>
+        <button bindtap="loadAcupoints" style="margin-top: 10px;" type="primary">重试</button>
+      </view>
+      
+      <!-- 无数据提示 -->
+      <view wx:if="{{!loading && !error && acupoints.length === 0}}" style="text-align: center; padding: 20px;">
+        <text class="text-gray-500">暂无穴位数据</text>
+      </view>
+      
+      <!-- 穴位表格 -->
+      <view wx:if="{{!loading && !error && acupoints.length > 0}}" class="mb-6">
+        <!-- 表头 -->
+        <view style="width: 100%; display: flex; background-color: white; border: 1px solid #e5e7eb; border-radius: 4px; margin-bottom: 5px;">
+          <view style="width: 10%; padding: 8px; font-size: 14px; font-weight: 700; color: #374151; background-color: #eff6ff; border: 1px solid #e5e7eb; display: flex; justify-content: center; align-items: center;">
+            腧穴名称
+          </view>
+          <view style="width: 60%; padding: 8px; text-align: center; font-size: 14px; font-weight: 600; color: #374151; background-color: #f0fdf4; border: 1px solid #e5e7eb;">
+            定位
+          </view>
+          <view style="width: 30%; padding: 8px; text-align: center; font-size: 14px; font-weight: 600; color: #374151; background-color: #fffbeb; border: 1px solid #e5e7eb;">
+            慎用提醒
+          </view>
+        </view>
+        
+        <!-- 表体 -->
+        <view wx:for="{{acupoints}}" wx:key="id" style="width: 100%; display: flex; background-color: white; border: 1px solid #e5e7eb; border-radius: 4px; margin-bottom: 0px;">
+          <view style="width: 10%; padding: 8px; font-size: 14px; font-weight: 700; color: #6b7280; background-color: #eff6ff; border: 1px solid #e5e7eb; display: flex; justify-content: center; align-items: center;">
+            {{item.name}}
+          </view>
+          <view style="width: 60%; padding: 8px; text-align: center; font-size: 14px; color: #6b7280; background-color: #f0fdf4; border: 1px solid #e5e7eb;">
+            {{item.location}}
+          </view>
+          <view style="width: 30%; padding: 8px; text-align: center; font-size: 14px; color: #6b7280; background-color: #fffbeb; border: 1px solid #e5e7eb;">
+            {{item.caution || '无'}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -47,7 +47,7 @@ Page({
       // 登录成功，设置登录状态并跳转到考试页面
       wx.setStorageSync('teacherLoggedIn', true);
       console.log('登录状态设置成功，准备跳转');
-      wx.switchTab({
+      wx.redirectTo({
         url: '/pages/exam/exam',
         success: function(res) {
           console.log('跳转成功');

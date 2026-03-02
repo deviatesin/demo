@@ -175,6 +175,10 @@
   justify-content: space-between;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .text-lg {
   font-size: 32rpx;
 }
@@ -315,6 +319,34 @@
   display: flex;
   flex-direction: column;
   gap: 24rpx;
+}
+
+.space-y-7 {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+}
+
+.space-y-8 {
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.p-7 {
+  padding: 28rpx;
+}
+
+.p-8 {
+  padding: 32rpx;
+}
+
+.p-9 {
+  padding: 36rpx;
+}
+
+.p-10 {
+  padding: 40rpx;
 }
 
 input[type="number"] {
