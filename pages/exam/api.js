@@ -125,12 +125,12 @@ export const questionApi = {
   // 获取专项考试题目
   getSpecializedExamQuestions: async (category1, category2 = null, count = 5) => {
     try {
-      let url = `/exam/specialized?category1=${encodeURIComponent(category1)}&count=${count}`;
+      let url = `/questions/specialized?category1=${encodeURIComponent(category1)}&count=${count}`;
       if (category2) {
         url += `&category2=${encodeURIComponent(category2)}`;
       }
       const res = await request(url);
-      return res.data.questions;
+      return res;
     } catch (error) {
       console.error('获取专项考试题目失败:', error);
       throw error;
@@ -221,7 +221,7 @@ export const healthApi = {
   checkHealth: async () => {
     try {
       // 调用后端健康检查接口
-      const res = await request('/../health');
+      const res = await request('/health');
       return res;
     } catch (error) {
       console.error('健康检查失败:', error);
