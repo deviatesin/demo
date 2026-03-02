@@ -408,6 +408,7 @@ Page({
             title: '考试分类信息不完整，请重新选择',
             icon: 'none'
           });
+          wx.hideLoading();
           return;
         }
         
@@ -419,6 +420,7 @@ Page({
             title: '该分类下没有可用题目，请选择其他分类',
             icon: 'none'
           });
+          wx.hideLoading();
           return;
         }
       } else {
@@ -472,6 +474,7 @@ Page({
           title: '无法生成考试题目，请重试',
           icon: 'none'
         });
+        wx.hideLoading();
         return;
       }
 
